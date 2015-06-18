@@ -3,7 +3,7 @@ import pygame, sys
 from pygame.locals import *
 
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((1200, 700))
+DISPLAYSURF = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption('Call Of Fruty')
 
 while True: # main game loop
@@ -11,4 +11,7 @@ while True: # main game loop
         if event.type == pygame.locals.QUIT:
             pygame.quit()
             sys.exit()
+
+
     pygame.display.update()
+
