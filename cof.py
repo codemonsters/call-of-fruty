@@ -71,7 +71,7 @@ while True: # main game loop
     if contador_cambiar_opcion_menu == 1:
         texto_inicio = font_grande.render("Inicio", True, BLANCO)
         texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
-        texto_prueba = font_pequeña.render("ºTexto 3", True, GRIS_LIGERO)
+        texto_prueba = font_pequeña.render("Texto 3", True, GRIS_LIGERO)
         texto_inicio_pos, texto_salir_pos, texto_prueba_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 295), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 385), ((ANCHO_SCREEN-texto_prueba.get_rect()[2])//2, 455)
     elif contador_cambiar_opcion_menu == 2:
         texto_inicio = font_pequeña.render("Inicio", True, GRIS_LIGERO)
