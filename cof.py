@@ -10,10 +10,6 @@ import menu
 import juego
 
 #====================================
-#     --------FUNCIONES--------
-#====================================
-
-#====================================
 #     ----------CUERPO----------
 #====================================
 #------------------Inicializar
@@ -21,10 +17,12 @@ pygame.init()
 DISPLAYSURF = pygame.display.set_mode((ANCHO_SCREEN, ALTO_SCREEN))
 pygame.display.set_caption('Call Of Fruty')
 fps_clock = pygame.time.Clock()
-pygame.key.set_repeat(1, 100)
+#pygame.key.set_repeat(1, 100)
 
 
-
+#====================================
+#     ----------JUEGO----------
+#====================================
 menu.menu(DISPLAYSURF, fps_clock)
 
 

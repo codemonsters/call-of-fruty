@@ -7,8 +7,9 @@ import pygame, sys
 from pygame.locals import *
 from constantes import *
 import juego
+
 #====================================
-#        ------------------
+#     ----------CUERPO----------
 #====================================
 pygame.init()
 
@@ -41,6 +42,8 @@ def menu(surface, fps_clock):
                     if contador_cambiar_opcion_menu == 1:
                         juego.jugar(surface, fps_clock)
                     elif contador_cambiar_opcion_menu == 2:
+                        pass
+                    elif contador_cambiar_opcion_menu == 3:
                         pygame.quit()
                         sys.exit()
 
@@ -52,23 +55,23 @@ def menu(surface, fps_clock):
         #------------------Textos menú
         if contador_cambiar_opcion_menu == 1:
             texto_inicio = font_grande.render("Inicio", True, BLANCO)
+            texto_records = font_pequeña.render("Records", True, GRIS_LIGERO)
             texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
-            texto_prueba = font_pequeña.render("Texto 3", True, GRIS_LIGERO)
-            texto_inicio_pos, texto_salir_pos, texto_prueba_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 295), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 385), ((ANCHO_SCREEN-texto_prueba.get_rect()[2])//2, 455)
+            texto_inicio_pos, texto_records_pos, texto_salir_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 295), ((ANCHO_SCREEN-texto_records.get_rect()[2])//2, 385), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 455)
         elif contador_cambiar_opcion_menu == 2:
             texto_inicio = font_pequeña.render("Inicio", True, GRIS_LIGERO)
-            texto_salir = font_grande.render("Salir", True, BLANCO)
-            texto_prueba = font_pequeña.render("Texto 3", True, GRIS_LIGERO)
-            texto_inicio_pos, texto_salir_pos, texto_prueba_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 300), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 360), ((ANCHO_SCREEN-texto_prueba.get_rect()[2])//2, 455)
+            texto_records = font_grande.render("Records", True, BLANCO)
+            texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
+            texto_inicio_pos, texto_records_pos, texto_salir_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 300), ((ANCHO_SCREEN-texto_records.get_rect()[2])//2, 360), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 455)
         elif contador_cambiar_opcion_menu == 3:
             texto_inicio = font_pequeña.render("Inicio", True, GRIS_LIGERO)
-            texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
-            texto_prueba = font_grande.render("Texto 3", True, BLANCO)
-            texto_inicio_pos, texto_salir_pos, texto_prueba_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 300), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 365), ((ANCHO_SCREEN-texto_prueba.get_rect()[2])//2, 430)
+            texto_records = font_pequeña.render("Records", True, GRIS_LIGERO)
+            texto_salir = font_grande.render("Salir", True, BLANCO)
+            texto_inicio_pos, texto_records_pos, texto_salir_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 300), ((ANCHO_SCREEN-texto_records.get_rect()[2])//2, 365), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 430)
 
         surface.blit(texto_inicio, texto_inicio_pos)
+        surface.blit(texto_records, texto_records_pos)
         surface.blit(texto_salir, texto_salir_pos)
-        surface.blit(texto_prueba, texto_prueba_pos)
 
         #------------------Dibujar, FPS
         pygame.display.update()
