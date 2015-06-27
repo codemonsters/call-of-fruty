@@ -6,8 +6,7 @@
 import pygame, sys
 from pygame.locals import *
 from constantes import *
-import clases
-import time
+from jugador import Jugador
 
 #====================================
 #     ---------JUEGO---------
@@ -19,10 +18,10 @@ def jugar(surface, fps_clock):
     imagen_fondo = pygame.image.load("imagenes/imagen_fondo.jpg")
 
     #------------------Jugadores
-    jugador1 = clases.Jugador("jugador1_sprite", [500, ALTO_SCREEN-50])
+    jugador1 = Jugador("jugador1_sprite", [500, ALTO_SCREEN-50])
     jugador1.direccion = 'derecha'
 
-    jugador2 = clases.Jugador("jugador2_sprite", [600, ALTO_SCREEN-50])
+    jugador2 = Jugador("jugador2_sprite", [600, ALTO_SCREEN-50])
     jugador2.direccion = 'izquierda'
 
     #------------------Tiles y disparos

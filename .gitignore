@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Imágenes en miniatura creadas por Windows
+Thumbs.db
+
+# Configuración local de PyCharm
+.idea/

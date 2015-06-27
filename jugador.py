@@ -4,13 +4,13 @@
 #     ---------IMPORTS---------
 #====================================
 import pygame, sys
-from pygame.locals import *
 from constantes import *
-import juego
+from disparo import Disparo
 
 #====================================
-#     ----------CLASES----------
+#     -------- CLASE Jugador --------
 #====================================
+
 class Jugador(pygame.sprite.Sprite):
     def __init__(self, imagen, posicion):
         pygame.sprite.Sprite.__init__(self)
@@ -66,30 +66,3 @@ class Jugador(pygame.sprite.Sprite):
                 lista_disparos.add(Disparo("platano", (self.rect.x, self.rect.y), self.direccion, 5))
             elif self.tipo_disparo == "melon":
                 lista_disparos.add(Disparo("melon", (self.rect.x, self.rect.y), self.direccion, 5))
-
-
-class Disparo(pygame.sprite.Sprite):
-    def __init__(self, imagen, posicion, direccion_disparo, daño):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("imagenes/" + imagen + ".png").convert_alpha()
-        self.rect = self.image.get_rect()
-
-        if direccion_disparo == 'izquierda':
-            self.rect.x, self.rect.y = posicion[0], posicion[1]
-        else:
-            self.rect.x, self.rect.y = posicion[0], posicion[1]
-        self.direccion = direccion_disparo
-        self.daño = daño
-
-    def actualizar_movimiento(self):
-        if self.direccion == 'izquierda':
-            self.rect.x -= 15
-            if self.rect.x <= 0:
-                self.kill()
-        elif self.direccion == 'derecha':
-            self.rect.x += 15
-            if self.rect.x+self.image.get_rect()[2] >= ANCHO_SCREEN:
-                self.kill()
-
-
-
