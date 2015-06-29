@@ -13,6 +13,46 @@ from jugador import Jugador
 #====================================
 pygame.init()
 
+def cambiar_imagen_jugador(jugador, lista_imagenes):
+    if jugador.moverse == False and jugador.salto == 0:
+        if jugador.disparar == False:
+            jugador.image = pygame.image.load(lista_imagenes[0])  # Totalmente quieto
+        else:
+            jugador.contador_cambiar_imagen += 1
+            if jugador.contador_cambiar_imagen < 3:
+                jugador.image = pygame.image.load(lista_imagenes[0])
+            else:
+                jugador.image = pygame.image.load(lista_imagenes[2])  # Totalmente quieto y disparando
+                if jugador.contador_cambiar_imagen >= 6:
+                    jugador.contador_cambiar_imagen = 0
+
+    elif jugador.moverse == True and jugador.salto == 0:
+        jugador.contador_cambiar_imagen += 1
+        if jugador.contador_cambiar_imagen < 3:
+            jugador.image = pygame.image.load(lista_imagenes[0])
+        else:
+            if jugador.disparar == False:
+                jugador.image = pygame.image.load(lista_imagenes[1])  # Solo moviéndose
+            else:
+                jugador.image = pygame.image.load(lista_imagenes[3])  # Moviéndose y disparando
+            if jugador.contador_cambiar_imagen >= 6:
+                jugador.contador_cambiar_imagen = 0
+
+    elif jugador.salto == True:
+        if jugador.disparar == False:
+            jugador.image = pygame.image.load(lista_imagenes[4])  # Solo saltando
+        else:
+            jugador.contador_cambiar_imagen += 1
+            if jugador.contador_cambiar_imagen < 3:
+                jugador.image = pygame.image.load(lista_imagenes[4])
+            else:
+                jugador.image = pygame.image.load(lista_imagenes[5])  # Saltando y disparando
+                jugador.contador_cambiar_imagen = 0
+
+    if jugador.direccion == 'izquierda':
+        jugador.image = pygame.transform.flip(jugador.image, 1, 0)
+
+
 def jugar(surface, fps_clock):
     #------------------Fondo
     imagen_fondo = pygame.image.load("imagenes/imagen_fondo.jpg")
@@ -121,9 +161,11 @@ def jugar(surface, fps_clock):
 
         #------------------Jugadores
         jugador1.actualizar_movimiento()
+        cambiar_imagen_jugador(jugador1, jugador1.images)
         surface.blit(jugador1.image, (jugador1.rect.x, jugador1.rect.y))
 
         jugador2.actualizar_movimiento()
+        cambiar_imagen_jugador(jugador2, jugador2.images)
         surface.blit(jugador2.image, (jugador2.rect.x, jugador2.rect.y))
 
         #------------------Frutas/disparos
@@ -132,20 +174,18 @@ def jugar(surface, fps_clock):
             disparo.actualizar_movimiento()
             colision = pygame.sprite.spritecollide(jugador2, lista_disparos_j1, True, pygame.sprite.collide_mask)
             if colision != []:
+                jugador2.life -= disparo.daño
                 disparo.kill()
-                jugador2.life -= 10
             else:
                 surface.blit(disparo.image, (disparo.rect.x, disparo.rect.y))
-                #pygame.display.update()
-                #time.sleep(1)
 
         #--Jugador 2
         for disparo in lista_disparos_j2:
             disparo.actualizar_movimiento()
             colision = pygame.sprite.spritecollide(jugador1, lista_disparos_j2, True, pygame.sprite.collide_mask)
             if colision != []:
+                jugador1.life -= disparo.daño
                 disparo.kill()
-                jugador1.life -= 10
             else:
                 surface.blit(disparo.image, (disparo.rect.x, disparo.rect.y))
 
