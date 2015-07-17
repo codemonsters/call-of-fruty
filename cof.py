@@ -21,6 +21,6 @@ fps_clock = pygame.time.Clock()
 #====================================
 #     ----------JUEGO----------
 #====================================
-menu.menu(DISPLAYSURF, fps_clock)
+menu.menu(DISPLAYSURF, fps_clock)  # Activamos el menú, desde donde se podrá activar el juego
 
 

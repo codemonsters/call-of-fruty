@@ -23,7 +23,7 @@ class Disparo(pygame.sprite.Sprite):
         self.direccion = direccion_disparo
         self.daño = daño
 
-    def actualizar_movimiento(self):
+    def ajustar_posicion(self):
         if self.direccion == 'izquierda':
             self.rect.x -= 15
             if self.rect.x <= 0:

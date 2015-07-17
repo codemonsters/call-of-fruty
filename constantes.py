@@ -3,10 +3,10 @@
 #====================================
 #    ---------CONSTANTES---------
 #====================================
-ANCHO_SCREEN = 1280
-ALTO_SCREEN = 720
-FPS = 60
-NEGRO = (0, 0, 0)
-BLANCO = (255, 255, 255)
-GRIS_LIGERO = (200, 200, 200)
-DIC_FUENTES = {}
+ANCHO_SCREEN = 1280  # Ancho de la pantalla
+ALTO_SCREEN = 720  # Alto de la pantalla
+FPS = 60  # FPS a los que va el juego
+NEGRO = (0, 0, 0)  # Color negro
+BLANCO = (255, 255, 255)  # Color blanco
+GRIS_LIGERO = (200, 200, 200)  # Color gris tirando a blanco
+DIC_FUENTES = {}  # Diccionario con todas las fuentes

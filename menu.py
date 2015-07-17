@@ -22,7 +22,7 @@ font_grande = pygame.font.Font("Astounding news.ttf", 110)
 #     --------FUNCIONES--------
 #====================================
 def menu(surface, fps_clock):
-    contador_cambiar_opcion_menu = 1
+    contador_cambiar_opcion_menu = 1  # Opción en la que estás de todo el menú (jugar, records o salir)
     while True: # main game loop
         for event in pygame.event.get():
             if event.type == pygame.locals.QUIT:
@@ -34,10 +34,12 @@ def menu(surface, fps_clock):
                     contador_cambiar_opcion_menu += 1
                     if contador_cambiar_opcion_menu >= 4:
                         contador_cambiar_opcion_menu = 1
+
                 elif event.key == K_UP:
                     contador_cambiar_opcion_menu -= 1
                     if contador_cambiar_opcion_menu <= 0:
                         contador_cambiar_opcion_menu = 3
+
                 elif event.key == K_RETURN:
                     if contador_cambiar_opcion_menu == 1:
                         juego.jugar(surface, fps_clock)
@@ -58,11 +60,13 @@ def menu(surface, fps_clock):
             texto_records = font_pequeña.render("Records", True, GRIS_LIGERO)
             texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
             texto_inicio_pos, texto_records_pos, texto_salir_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 295), ((ANCHO_SCREEN-texto_records.get_rect()[2])//2, 385), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 455)
+
         elif contador_cambiar_opcion_menu == 2:
             texto_inicio = font_pequeña.render("Inicio", True, GRIS_LIGERO)
             texto_records = font_grande.render("Records", True, BLANCO)
             texto_salir = font_pequeña.render("Salir", True, GRIS_LIGERO)
             texto_inicio_pos, texto_records_pos, texto_salir_pos = ((ANCHO_SCREEN-texto_inicio.get_rect()[2])//2, 300), ((ANCHO_SCREEN-texto_records.get_rect()[2])//2, 360), ((ANCHO_SCREEN-texto_salir.get_rect()[2])//2, 455)
+
         elif contador_cambiar_opcion_menu == 3:
             texto_inicio = font_pequeña.render("Inicio", True, GRIS_LIGERO)
             texto_records = font_pequeña.render("Records", True, GRIS_LIGERO)
