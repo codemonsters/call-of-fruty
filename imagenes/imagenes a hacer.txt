@@ -1,2 +1,0 @@
-monos saltando (sprite 5)
-mono saltando y disparando (sprite 6)
