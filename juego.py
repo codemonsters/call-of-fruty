@@ -46,26 +46,36 @@ def movimiento_jugador(jugador, lista_imagenes):
             jugador.rect.x += 10  # Avanza cuando después del impulso salta
             #--Mini efecto de salto hacia arriba
             if jugador.contador_cambiar_imagen < 11:  # Va subiendo
-                jugador.rect.y -= 2
+                jugador.rect.y -= 4
             else:  # Va bajando
-                jugador.rect.y += 2
+                jugador.rect.y += 4
         elif jugador.contador_cambiar_imagen < 21:
             jugador.image = pygame.image.load(lista_imagenes[4])  # Recoge solo las patas de delante
-            jugador.rect.x += 4  # Adelantamos la imagen para que no parezca que va hacia atrás al terminar el salto
+            jugador.rect.x += 1  # Adelantamos la imagen para que no parezca que va hacia atrás al terminar el salto
         else:
             jugador.contador_cambiar_imagen = 0  # Se reinicia el movimiento
             jugador.image = pygame.image.load(lista_imagenes[1])
 
         if jugador.direccion == 'izquierda':
+            jugador.direccion_salto = 'izquierda'
             if jugador.contador_cambiar_imagen < 3:
                 jugador.rect.x -= 14  # Contrarrestamos el 7 que le dábamos por el 'movimiento gaviota' (posicion de la cabeza)
             elif jugador.contador_cambiar_imagen < 16 and jugador.contador_cambiar_imagen >= 6:
                 jugador.rect.x -= 20  # Contrarrestamos el +10 que se le daba cuando daba el salto
             elif jugador.contador_cambiar_imagen < 21 and jugador.contador_cambiar_imagen >= 16:
-                jugador.rect.x -= 8  # Contrarrestamos el +4 que se le daba cuando terminaba el salto
+                jugador.rect.x -= 2  # Contrarrestamos el +1 que se le daba cuando terminaba el salto
 
     #----------Saltando
-    elif jugador.salto == True:  # Si está saltando
+    elif jugador.salto != 0:  # Si está saltando
+        jugador.rect.y -= jugador.salto
+        jugador.salto -= 0.9    # Gravedad, cada vez el salto será mas pequeño y pasará a ser negativo
+
+        tecla_pulsada = pygame.key.get_pressed()
+        if (tecla_pulsada[K_a] or tecla_pulsada[K_LEFT]) and jugador.direccion == 'izquierda':
+            jugador.rect.x -= 3
+        elif (tecla_pulsada[K_d] or tecla_pulsada[K_RIGHT]) and jugador.direccion == 'derecha':
+            jugador.rect.x += 3
+
         if jugador.disparar == False:
             jugador.image = pygame.image.load(lista_imagenes[5])  # Salto normal
         else:
@@ -86,10 +96,10 @@ def jugar(surface, fps_clock):
     imagen_fondo = pygame.image.load("imagenes/imagen_fondo.jpg")
 
     #------------------Jugadores
-    jugador1 = Jugador("jugador1_sprite", [500, ALTO_SCREEN-39])
+    jugador1 = Jugador([500, ALTO_SCREEN-39])
     jugador1.direccion = 'derecha'
 
-    jugador2 = Jugador("jugador2_sprite", [600, ALTO_SCREEN-39])
+    jugador2 = Jugador([600, ALTO_SCREEN-39])
     jugador2.direccion = 'izquierda'
 
     #------------------Tiles y disparos
@@ -195,19 +205,19 @@ def jugar(surface, fps_clock):
         surface.blit(imagen_fondo, (0, 0))
 
         #------------------Jugadores
-        jugador1.ajustar_posicion()  # Si se sale de la pantalla
         movimiento_jugador(jugador1, jugador1.images)  # Cambiamos la imagen según su movimiento
+        jugador1.ajustar_posicion()  # Si se sale de la pantalla
         surface.blit(jugador1.image, (jugador1.rect.x, jugador1.rect.y))
 
-        jugador2.ajustar_posicion()  # Si se sale de la pantalla
         movimiento_jugador(jugador2, jugador2.images)  # Cambiamos la imagen según su movimiento
+        jugador2.ajustar_posicion()  # Si se sale de la pantalla
         surface.blit(jugador2.image, (jugador2.rect.x, jugador2.rect.y))
 
         #------------------Frutas/disparos
 
         #--Jugador 1
         for disparo in lista_disparos_j1:
-            disparo.ajustar_posicion()  # Si se sale de la pantalla
+            disparo.ajustar_posicion()
             colision = pygame.sprite.spritecollide(jugador2, lista_disparos_j1, True, pygame.sprite.collide_mask)
             if colision != []:  # Si hay una colisión
                 jugador2.life -= disparo.daño
@@ -217,7 +227,7 @@ def jugar(surface, fps_clock):
 
         #--Jugador 2
         for disparo in lista_disparos_j2:
-            disparo.ajustar_posicion()  # Si se sale de la pantalla
+            disparo.ajustar_posicion()
             colision = pygame.sprite.spritecollide(jugador1, lista_disparos_j2, True, pygame.sprite.collide_mask)
             if colision != []:  # Si hay una colisión
                 jugador1.life -= disparo.daño
@@ -230,4 +240,5 @@ def jugar(surface, fps_clock):
         fps_clock.tick(FPS)
 
 
-# Con el jugador 2 al tener varias teclas pulsadas no funciona correctamente (2 movimiento: no disparar, 1 mov & disparar: not 2º mov)
+# Con el jugador 2 al tener varias teclas pulsadas no funciona correctamente:
+# si mantenemos las 2 de movimiento no dispara, si nos movemos y disparamos no va hacia el otro lado
